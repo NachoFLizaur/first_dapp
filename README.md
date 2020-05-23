@@ -190,3 +190,5 @@ If you still see *null*, you need to manually reconnect to localhost on your met
 2. Go to connections.
 3. In Add Site, type "localhost" and click connect.
 4. Reload the page.
+
+After this you should be able to see the name of the candidates and their vote count, and the address of the account you are logged-in with at the bottom of the page.
