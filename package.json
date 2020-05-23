@@ -14,5 +14,11 @@
   "license": "ISC",
   "devDependencies": {
     "lite-server": "^2.5.4"
+  },
+  "dependencies": {
+    "filename-regex": "^2.0.1",
+    "object.omit": "^3.0.0",
+    "parse-glob": "^3.0.4",
+    "regex-cache": "^0.4.4"
   }
 }
