@@ -106,3 +106,4 @@ dist
 ## Build generated
 build/
 DerivedData/
+build/contracts/
