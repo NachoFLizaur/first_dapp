@@ -1,4 +1,4 @@
-pragma solidity >=0.4.21 <0.7.0;
+pragma solidity >=0.5.16;
 
 contract Election {
     // Model candidate
@@ -7,6 +7,9 @@ contract Election {
         string name;
         uint voteCount;
     }
+
+    // Store accounts that voted
+    mapping(address => bool) public voters;
 
     // Store candidate (key - value pair mapping)
     // Fetch candidate
@@ -29,5 +32,19 @@ contract Election {
     function addCandidate(string memory _name) private {
         candidatesCount++;
         candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+    }
+
+    // vote function: Based in a given candidateId, it will retrieve it from the candidates
+    // mapping and increment the voteCount variable by one.
+    // It is public so that it can be accessed by every user in the blockchain.
+    // We can obtain the address of the account voting thanks to the metadata of the transaction
+    function vote(uint _candidateId) public {
+        
+        // Record that voter has voted
+        voters[msg.sender] = true;
+
+        // Update candidate vote Count
+        candidates[_candidateId].voteCount ++;
+
     }
 }

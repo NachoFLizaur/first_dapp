@@ -192,3 +192,52 @@ If you still see *null*, you need to manually reconnect to localhost on your met
 4. Reload the page.
 
 After this you should be able to see the name of the candidates and their vote count, and the address of the account you are logged-in with at the bottom of the page.
+
+## Casting votes
+
+In order to try this functionality it is best to try it with a simplified version of the function, such as:
+
+        function vote(uint _candidateId) public {
+        
+                // Record that voter has voted
+                voters[msg.sender] = true;
+
+                // Update candidate vote Count
+                candidates[_candidateId].voteCount ++;
+
+        }
+
+Once you have that you will want to deploy your contract and from the console execute the following:
+
+        Election.deployed().then(function(instance) {app = instance})
+        let accounts = await web3.eth.getAccounts()
+        app.vote(1, {from : accounts[0]})
+
+The code above does the following:
+1. Assign the contract to the variable app
+2. obtain the accounts in the blockchain
+3. execute the vote function, which takes as parameters the id of the candidate you want to give the vote to, and the addess which performs the transaction i nthe metadata of the function.
+
+This is going to trigger a transaction which will modify the voteCount of the target candidate.
+
+### Problem troubleshooting
+
+while trying to get this part of the dapp to work I met the error:
+
+        Uncaught Error: Returned error: VM Exception while processing transaction: revert
+
+This is a very generic error and it doesn't give much information about what is really causing the problem.
+
+In my case, the issue with this was that in ganache I had set the gas cost to an very high value (arround 2000000), which was making it impossible to transaction to complete.
+
+To fix it, I had to edit the ganache configuration to lower the value (in my case to 1) and then redeploy the contract again.
+
+I also had to import a new wallet in metamask, as the blockchain resets when you modify the configuration.
+
+If after changing this you are still unable to execute the vote function, I would recommend commenting the 
+
+        voters[msg.sender] = true;
+
+line and executing the function with:
+
+        app.vote(1)
