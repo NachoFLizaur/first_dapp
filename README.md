@@ -143,7 +143,7 @@ Note that it always deploys the contracts before testing them.
 
 ## Deploying app to client-side browser
 
-In the package.json file we can see the dependancies.
+In the package.json file we can see the dependencies.
 
 Lite-server is used to build all of the client-side assets.
 
